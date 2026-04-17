@@ -1,0 +1,19 @@
+site_name: "{{ project_name }}"
+site_description: "{{ project_description }}"
+repo_url: https://github.com/{{ github_username }}/{{ project_name|lower|replace(' ', '-') }}
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+
+nav:
+  - Home: index.md

@@ -29,14 +29,14 @@ jobs:
         id: release
         uses: python-semantic-release/python-semantic-release@v9.16.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       - name: Fix permissions
-        if: steps.release.outputs.released == 'true'
+        if: {% raw %}steps.release.outputs.released == 'true'{% endraw %}
         run: sudo chown -R $(id -u):$(id -g) dist/
 
       - name: Publish to PyPI
-        if: steps.release.outputs.released == 'true'
+        if: {% raw %}steps.release.outputs.released == 'true'{% endraw %}
         run: |
           uv build
           uv publish

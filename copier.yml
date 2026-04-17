@@ -1,6 +1,4 @@
 _subdirectory: template
-_exclude:
-  - ".github/workflows/**"
 
 project_name:
   type: str
