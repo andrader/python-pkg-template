@@ -7,7 +7,7 @@ setup:
     uv run pre-commit install --hook-type commit-msg
 
 # Run all qa checks
-qa: lint typecheck test
+qa: lint {% if include_ty %}typecheck {% endif %}test
 
 # Format code
 format:
@@ -17,14 +17,17 @@ format:
 lint:
     uv run ruff check .
 
+{% if include_ty -%}
 # Run type checker
 typecheck:
     uv run ty check
+{%- endif %}
 
 # Run tests
 test:
     uv run pytest
 
+{% if include_docs -%}
 # Serve documentation
 docs-serve:
     uv run mkdocs serve
@@ -32,3 +35,4 @@ docs-serve:
 # Build documentation
 docs-build:
     uv run mkdocs build
+{%- endif %}

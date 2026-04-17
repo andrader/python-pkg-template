@@ -2,38 +2,14 @@
 
 {{ project_description }}
 
-## Template Usage
+## Installation
 
-This project was created from a [Copier](https://copier.readthedocs.io/) template.
+\`\`\`bash
+pip install {{ project_name|lower|replace(' ', '-') }}
+\`\`\`
 
-To use this template for a new project:
+{% if include_docs %}
+## Documentation
 
-```bash
-copier copy path/to/templates/python-pkg my-new-project
-```
-
-## Development
-
-This project uses `uv` for dependency management and `just` for task automation.
-
-### Setup
-
-```bash
-just setup
-```
-
-### Running Tests
-
-```bash
-just test
-```
-
-### QA (Lint, Typecheck, Test)
-
-```bash
-just qa
-```
-
-## License
-
-This project is licensed under the terms of the license included in the repository.
+For more information, see the [documentation](docs/index.md).
+{% endif %}

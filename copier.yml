@@ -29,3 +29,28 @@ github_username:
   type: str
   help: "What is your GitHub username?"
   default: "username"
+
+include_docs:
+  type: bool
+  help: "Include MkDocs documentation setup?"
+  default: true
+
+include_ty:
+  type: bool
+  help: "Include 'ty' type checker?"
+  default: true
+
+include_semantic_release:
+  type: bool
+  help: "Include Python Semantic Release?"
+  default: true
+
+include_workflows:
+  type: bool
+  help: "Include GitHub Actions workflows?"
+  default: true
+
+include_cli:
+  type: bool
+  help: "Include a CLI entry point?"
+  default: true

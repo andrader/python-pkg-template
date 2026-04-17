@@ -7,12 +7,17 @@ requires-python = ">=3.12"
 authors = [
     { name = "{{ author_name }}", email = "{{ author_email }}" }
 ]
-dependencies = []
+dependencies = [ {% if include_cli %}"typer>=0.12.0"{% endif %} ]
 
 [project.urls]
 Homepage = "https://github.com/{{ github_username }}/{{ project_name|lower|replace(' ', '-') }}"
 Issues = "https://github.com/{{ github_username }}/{{ project_name|lower|replace(' ', '-') }}/issues"
 Repository = "https://github.com/{{ github_username }}/{{ project_name|lower|replace(' ', '-') }}"
+
+{% if include_cli %}
+[project.scripts]
+{{ project_name|lower|replace(' ', '-') }} = "{{ package_name }}.main:app"
+{% endif %}
 
 [build-system]
 requires = ["hatchling"]
@@ -25,13 +30,15 @@ packages = ["src/{{ package_name }}"]
 dev = [
     "pytest>=8.0.0",
     "ruff>=0.3.0",
-    "ty>=0.0.29",
+    {% if include_ty %}"ty>=0.0.29",{% endif %}
     "commitizen>=4.1.0",
-    "python-semantic-release>=9.0.0",
+    {% if include_semantic_release %}"python-semantic-release>=9.0.0",{% endif %}
     "pre-commit>=4.0.0",
+    {% if include_docs %}
     "mkdocs>=1.6.1",
     "mkdocstrings[python]>=1.0.4",
     "mkdocs-material>=9.7.6",
+    {% endif %}
 ]
 
 [tool.pytest.ini_options]
@@ -44,6 +51,7 @@ version_provider = "pep621"
 version = "0.1.0"
 update_changelog_on_bump = true
 
+{% if include_semantic_release %}
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
 build_command = "python -m pip install uv && uv build"
@@ -55,10 +63,13 @@ match = "main"
 
 [tool.semantic_release.changelog]
 changelog_file = "CHANGELOG.md"
+{% endif %}
 
 [tool.ruff]
 exclude = ["templates"]
 
+{% if include_ty %}
 [tool.ty.src]
 include = ["src", "tests"]
 exclude = ["templates/"]
+{% endif %}

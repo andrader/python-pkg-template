@@ -5,6 +5,7 @@ repos:
       - id: ruff
         args: [ --fix ]
       - id: ruff-format
+  {% if include_ty -%}
   - repo: local
     hooks:
       - id: ty
@@ -14,6 +15,7 @@ repos:
         pass_filenames: false
         always_run: true
         types: [python]
+  {%- endif %}
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v4.1.0
     hooks:
